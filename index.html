@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project AFT_Ouroboros — Recurrent Symplectic AI & Edge Silicon Verification</title>
+  <meta name="description" content="Project AFT_Ouroboros: Non-dissipative recurrent sequence architectures, symplectic Clifford phase spaces, and cache-local verification on consumer edge silicon.">
+  <meta name="robots" content="index, follow, noarchive, max-snippet:150">
+  <meta name="googlebot" content="index, follow, noarchive">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0d12;
+      --bg-secondary: #111620;
+      --bg-card: #161c28;
+      --border-color: #222b3d;
+      --text-main: #e2e8f0;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.12);
+      --success: #10b981;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-sans: 'Inter', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border-color);
+      background-color: rgba(10, 13, 18, 0.88);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 4.5rem;
+    }
+
+    .logo {
+      font-family: var(--font-mono);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.75rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .hero {
+      padding: 5rem 0 3.5rem;
+      border-bottom: 1px solid var(--border-color);
+      background: radial-gradient(circle at 50% 0%, var(--accent-glow) 0%, transparent 60%);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.75rem;
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 9999px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      background-color: var(--success);
+      border-radius: 50%;
+    }
+
+    h1 {
+      font-size: 2.75rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.025em;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 780px;
+      margin-bottom: 2rem;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background-color: var(--accent);
+      color: #0f172a;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--bg-card);
+      border-color: var(--accent);
+    }
+
+    section {
+      padding: 4.5rem 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .section-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.015em;
+    }
+
+    .section-desc {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      max-width: 680px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.75rem;
+      transition: border-color 0.2s;
+    }
+
+    .card:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+
+    .card-icon {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .metrics-table-wrapper {
+      overflow-x: auto;
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    th {
+      background-color: rgba(255, 255, 255, 0.02);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .mono {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      background-color: rgba(16, 185, 129, 0.15);
+      color: var(--success);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    footer {
+      padding: 3rem 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      background-color: var(--bg-primary);
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <nav>
+        <a href="#" class="logo">AFT_<span>OUROBOROS</span></a>
+        <ul class="nav-links">
+          <li><a href="#about">Overview</a></li>
+          <li><a href="#telemetry">Physical Telemetry</a></li>
+          <li><a href="#repositories">Repositories</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="badge">
+          <span class="badge-dot"></span> Empirical Verification • Qualcomm Snapdragon 870
+        </div>
+        <h1>Continuous Symplectic Phase Spaces & Cache-Local AI Runtimes</h1>
+        <p>
+          Project AFT_Ouroboros investigates non-dissipative recurrent sequence processing, Clifford spinor representations, cellular cohomology memory crystallization, and deterministic execution strictly confined within L2 cache on edge silicon.
+        </p>
+        <div class="cta-buttons">
+          <a href="https://github.com/esteban-natanael-gonzalez-2006/aft-ouroboros-silicon-benchmarks" class="btn btn-primary" target="_blank" rel="noopener">
+            View Public Benchmarks
+          </a>
+          <a href="https://github.com/esteban-natanael-gonzalez-2006/AFT-Ouroboros-An-Open-Hardware-Linear-Sequence-Coprocessor-for-Resource-Constrained-RISC-V-SoCs" class="btn btn-secondary" target="_blank" rel="noopener">
+            Open Hardware RTL (RISC-V)
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <h2 class="section-title">Core Research Vectors</h2>
+        <p class="section-desc">
+          Eliminating quadratic attention bottlenecks and memory fragmentation through rigorous mathematical physics and deterministic low-level engineering.
+        </p>
+        <div class="grid-3">
+          <div class="card">
+            <span class="card-icon">[01] ALGEBRAIC PHYSICS</span>
+            <h3>Symplectic Phase Spaces</h3>
+            <p>
+              Unitary recurrent evolution on hyperspheres S^{D-1} and real projective spaces RP^{D-1}. Non-linear state transitions governed by exact Grassmann-Plücker syzygies and dyadic Zak butterfly reductions.
+            </p>
+          </div>
+          <div class="card">
+            <span class="card-icon">[02] DISSIPATION-FREE MEMORY</span>
+            <h3>Cellular Knot Crystallization</h3>
+            <p>
+              Hodge-theoretic orthogonal decoupling on simplicial complexes. Dynamic states crystallize into harmonic 1-cycles with zero KV-cache growth, yielding over 342× memory reduction across sequence horizons.
+            </p>
+          </div>
+          <div class="card">
+            <span class="card-icon">[03] EDGE SILICON VERIFICATION</span>
+            <h3>Cache-Confined Execution</h3>
+            <p>
+              Strict C99 and ARM64 NEON vectorized kernels designed for deterministic execution entirely within L1D/L2 cache (Snapdragon 870 / Kryo 585 Prime) without dynamic memory allocations or DRAM traffic.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="telemetry">
+      <div class="container">
+        <h2 class="section-title">Physical Telemetry & Evidentiary Benchmarks</h2>
+        <p class="section-desc">
+          Empirical measurements captured via high-resolution monotonic clocks and CPU-bound affinity on consumer mobile hardware.
+        </p>
+
+        <div class="metrics-table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Evaluated Property</th>
+                <th>Target Platform</th>
+                <th>Measured Value</th>
+                <th>Epistemic Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Topological Knot Crystallization</td>
+                <td class="mono">Kryo 585 Prime @ 3.19 GHz</td>
+                <td class="mono">7.029 µs / knot</td>
+                <td><span class="status-badge">MEASURED</span></td>
+              </tr>
+              <tr>
+                <td>Recurrent Training Throughput (D=64)</td>
+                <td class="mono">Kryo 585 Prime (L2-Confined)</td>
+                <td class="mono">97,747 tokens/sec</td>
+                <td><span class="status-badge">MEASURED</span></td>
+              </tr>
+              <tr>
+                <td>Recurrent Training Throughput (D=128)</td>
+                <td class="mono">Kryo 585 Prime (L2-Confined)</td>
+                <td class="mono">48,285 tokens/sec</td>
+                <td><span class="status-badge">MEASURED</span></td>
+              </tr>
+              <tr>
+                <td>Context Length Scaling (L ∈ [64, 16384])</td>
+                <td class="mono">C99 ARM64 NEON Pipeline</td>
+                <td class="mono">α = 1.00226 (R² = 0.99999)</td>
+                <td><span class="status-badge">MEASURED</span></td>
+              </tr>
+              <tr>
+                <td>Zero-KV Memory Compression</td>
+                <td class="mono">Multi-scale Knot Storage vs KV</td>
+                <td class="mono">≥ 342× reduction</td>
+                <td><span class="status-badge">DERIVED</span></td>
+              </tr>
+              <tr>
+                <td>Zero-Copy Checkpoint Mapping Latency</td>
+                <td class="mono">Linux mmap / 64-byte aligned</td>
+                <td class="mono">21.41 µs (0 bytes heap)</td>
+                <td><span class="status-badge">MEASURED</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="repositories">
+      <div class="container">
+        <h2 class="section-title">Open Repositories & Artifacts</h2>
+        <p class="section-desc">
+          Reproducible codebases, hardware definitions, and empirical data published under open licenses.
+        </p>
+        <div class="grid-3">
+          <div class="card">
+            <span class="card-icon">GITHUB REPOSITORY</span>
+            <h3>aft-ouroboros-silicon-benchmarks</h3>
+            <p>
+              Reproducibility suite, anti-DCE benchmarking harnesses, assembly verification, and canonical evidence matrix on consumer silicon.
+            </p>
+            <br>
+            <a href="https://github.com/esteban-natanael-gonzalez-2006/aft-ouroboros-silicon-benchmarks" class="mono" style="color: var(--accent); text-decoration: none;">View repository &rarr;</a>
+          </div>
+          <div class="card">
+            <span class="card-icon">HARDWARE COPROCESSOR</span>
+            <h3>AFT-Ouroboros RISC-V SoC</h3>
+            <p>
+              Open hardware linear sequence coprocessor for resource-constrained RISC-V SoCs defined in SystemVerilog.
+            </p>
+            <br>
+            <a href="https://github.com/esteban-natanael-gonzalez-2006/AFT-Ouroboros-An-Open-Hardware-Linear-Sequence-Coprocessor-for-Resource-Constrained-RISC-V-SoCs" class="mono" style="color: var(--accent); text-decoration: none;">View repository &rarr;</a>
+          </div>
+          <div class="card">
+            <span class="card-icon">NUMERICAL FRAMEWORK</span>
+            <h3>ouroboros-ns-snn</h3>
+            <p>
+              Navier-Stokes analytical framework for spiking neural networks with logarithmic number systems (LNS) and Mitchell multiplierless arithmetic.
+            </p>
+            <br>
+            <a href="https://github.com/esteban-natanael-gonzalez-2006/ouroboros-ns-snn" class="mono" style="color: var(--accent); text-decoration: none;">View repository &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <h2 class="section-title">Scientific Inquiries</h2>
+        <p class="section-desc">
+          Direct all technical correspondence, reproducibility inquiries, and collaboration requests to the lead investigator.
+        </p>
+        <div class="card" style="max-width: 600px;">
+          <p style="margin-bottom: 0.5rem; color: var(--text-main); font-weight: 600;">Esteban Natanael González</p>
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Lead Researcher & Systems Architect • Project AFT_Ouroboros</p>
+          <p class="mono" style="color: var(--accent);">esteban@aft-ouroboros.org</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-content">
+      <div>
+        &copy; 2026 Project AFT_Ouroboros. Non-commercial scientific research.
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/esteban-natanael-gonzalez-2006" target="_blank" rel="noopener">GitHub</a>
+        <a href="#about">Overview</a>
+        <a href="#telemetry">Telemetry</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
